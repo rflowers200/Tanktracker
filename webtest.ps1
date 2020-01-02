@@ -115,7 +115,7 @@ If ($webup -eq "UP" -and $Javaup -eq "UP") {
 				Write-host $AddCounter
 				If ($AddCounter -eq 2) {
 					$Username = "ttadmin"
-					$pwdin = Get-Content $pbd + "\TTauthenticationfile.cfg"
+					$pwdin = Get-Content $pwd + "\TTauthenticationfile.cfg"
 					$Password = $pwdin | ConvertTo-SecureString
 					$Credentials = New-Object System.Management.Automation.PSCredential $Username, $Password
 					$s = New-PSSession -ComputerName 10.37.20.200 -Credential $Credentials -ErrorAction SilentlyContinue
