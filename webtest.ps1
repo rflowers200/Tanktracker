@@ -77,7 +77,7 @@ Function EmailOut {
 		$message = new-object System.Net.Mail.MailMessage
 		$message.From = $fromaddress
 		#When Testing Disable $message.to
-		$message.To.Add($toaddress)
+		#$message.To.Add($toaddress)
 		$message.CC.Add($CCaddress)
 		#$message.Bcc.Add($bccaddress)
 		$message.IsBodyHtml = $True
@@ -96,7 +96,7 @@ Function EmailOut {
 	}
 }
 $webup, $Javaup = WebsiteJava
-$fileToCheck = $pwd + "\count.txt"
+$fileToCheck = "$pwd\count.txt"
 if (!(Test-Path $fileToCheck -PathType leaf)) {
 	New-Item -path $fileToCheck -value "0"
 }
@@ -113,9 +113,10 @@ If ($webup -eq "UP" -and $Javaup -eq "UP") {
 				$AddCounter++
 				Set-Content "$fileToCheck" $AddCounter
 				Write-host $AddCounter
+				Write-host $pwd
 				If ($AddCounter -eq 2) {
 					$Username = "ttadmin"
-					$pwdin = Get-Content $pwd + "\TTauthenticationfile.cfg"
+					$pwdin = Get-Content "$pwd\TTauthenticationfile.cfg"
 					$Password = $pwdin | ConvertTo-SecureString
 					$Credentials = New-Object System.Management.Automation.PSCredential $Username, $Password
 					$s = New-PSSession -ComputerName 10.37.20.200 -Credential $Credentials -ErrorAction SilentlyContinue
