@@ -128,6 +128,9 @@ If ($webup -eq "UP" -and $Javaup -eq "UP") {
 						Stop-Process -Name "Java"
 						#Wait
 						Start-sleep -s 60
+						#Shutdown Tanktracker
+						start-process cmd -argument "/c C:\BUREAUEYE\apache-tomcat-6.0.36_64\bin\shutdown.bat" -ErrorAction SilentlyContinue -wait
+						Start-sleep -s 60
 						#Start Tanktracker
 						start-process cmd -argument "/c C:\BUREAUEYE\apache-tomcat-6.0.36_64\bin\startup.bat" -ErrorAction SilentlyContinue
 					}
