@@ -86,9 +86,9 @@ Function EmailOut {
 		$object = gwmi win32_operatingsystem -ComputerName $env:computername | select csname, @{LABEL = 'LastBootUpTime'; EXPRESSION = { $_.ConverttoDateTime($_.lastbootuptime) } }
 		$Username = "tanktrackeritt@gmail.com"
 		#Plaintext Password
-		$Password = "2mS0b5u6ypKGtvrFnL"
+		#$Password = "2mS0b5u6ypKGtvrFnL"
 		#Secure Password
-		#$FilePassword = "$pwd\EmailPassword.txt"
+		$Password = Get-Content "$pwd\EmailPassword.txt" | ConvertTo-SecureString
 		#$Password = $FilePassword  | ConvertTo-SecureString
 		$fromaddress = "tanktrackeritt@gmail.com"
 		$toaddress = "rflowers@allcovered.com"
@@ -151,8 +151,8 @@ If ($webup -eq "DOWN" -or $Javaup -eq "DOWN") {
 		#Tanktracker Remediation
 		If ($AddCounter -eq 2) {
 			$Username = "ttadmin"
-			$pwdin = Get-Content "$pwd\TTauthenticationfile.cfg"
-			$Password = $pwdin | ConvertTo-SecureString
+			#$pwdin = Get-Content "$pwd\TTauthenticationfile.cfg"
+			$Password =Get-Content "$pwd\TTauthenticationfile.cfg" | ConvertTo-SecureString
 			$Credentials = New-Object System.Management.Automation.PSCredential $Username, $Password
 			#Connect to Tanktracker-sql
 			$s = New-PSSession -ComputerName 10.37.20.200 -Credential $Credentials -ErrorAction SilentlyContinue
