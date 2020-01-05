@@ -85,11 +85,8 @@ Function EmailOut {
 		###########Define Variables########
 		$object = gwmi win32_operatingsystem -ComputerName $env:computername | select csname, @{LABEL = 'LastBootUpTime'; EXPRESSION = { $_.ConverttoDateTime($_.lastbootuptime) } }
 		$Username = "tanktrackeritt@gmail.com"
-		#Plaintext Password
-		#$Password = "2mS0b5u6ypKGtvrFnL"
 		#Secure Password
 		$Password = Get-Content "$pwd\EmailPassword.txt" | ConvertTo-SecureString
-		#$Password = $FilePassword  | ConvertTo-SecureString
 		$fromaddress = "tanktrackeritt@gmail.com"
 		$toaddress = "rflowers@allcovered.com"
 		$CCaddress = "rflowers300@gmail.com"
